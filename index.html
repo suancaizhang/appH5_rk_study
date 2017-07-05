@@ -103,6 +103,32 @@
                         </ul>
                     </section>
 
+                    <section class="page1">
+                        <pre><code class="hljs javascript" data-trim="" contenteditable=""><span class="hljs-function"><span class="hljs-keyword">var send = function</span> <span class="hljs-title">(obj, callback)</span> </span>{
+  <span class="hljs-keyword">if</span>( isiDevice ) {
+    <span class="hljs-built_in">window.</span>webkit.messageHandlers.ocFunction.postMessage(obj);
+    return "";
+  }
+  <span class="hljs-keyword">if</span>( isAndroid ) {
+    if (typeof Android !== 'undefined') {
+        if (Object.getOwnPropertyNames && Object.getOwnPropertyNames(obj).length > 1) {
+            if (obj.callback && callback) {
+                window[obj.callback] = callback;
+            }
+            Android[obj.method](JSON.stringify(obj));
+        } else {
+            Android[obj.method]();
+        }
+    } else {
+        console.error('Android is undefined!');
+    }
+  }
+}</code></pre>
+
+
+                    </section>
+
+
                     <section>
                         <h2>处理的一些问题/遇到的一些问题</h2>
                         <ul style="font-family: 'Microsoft YaHei';font-weight:400;">
@@ -114,7 +140,7 @@
                     </section>
 
                     <section>
-                        <h2>公司APP中可以用内嵌H5实现</h2>
+                        <h2>APP中可以用内嵌H5实现</h2>
                         <p class="fragment" style="font-family: 'Microsoft YaHei';">目的：让原生app更专注做业务逻辑，而且改变更容易</p>
                         <ul style="font-family: 'Microsoft YaHei';font-weight:400;">
                             <li style="margin-bottom: 15px;" class="fragment">例子：我的tab下的意见反馈完全可以用H5</li>
